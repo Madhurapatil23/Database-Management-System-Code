@@ -1,0 +1,95 @@
+Problem Statement :
+Write a database trigger (Row level and statement level) 
+
+------------------------------------------------------------------------------------------------------
+
+mysql> use mydb;
+Database changed
+
+mysql> create table employees(empid int primary key,ename varcha
+r(20),contact int,DOB date,salary int,Pid int,Did int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into employees (empid,ename,contact,DOB,salary,Pid,Did)values
+    -> (101,"Madhura Patil",345678,'2004-08-23',456354,2,3),
+    -> (102,"Ram Kulkarni",532678,'2003-09-26',234567,4,5),
+    -> (103,"Sakshi Rathi",632422,'2002-10-9',643567,6,7),
+    -> (104,"Kapil Sharma",743245,'2005-12-7',345632,7,8);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select* from employees;
++-------+---------------+---------+------------+--------+------+------+
+| empid | ename         | contact | DOB        | salary | Pid  | Did  |
++-------+---------------+---------+------------+--------+------+------+
+|   101 | Madhura Patil |  345678 | 2004-08-23 | 456354 |    2 |    3 |
+|   102 | Ram Kulkarni  |  532678 | 2003-09-26 | 234567 |    4 |    5 |
+|   103 | Sakshi Rathi  |  632422 | 2002-10-09 | 643567 |    6 |    7 |
+|   104 | Kapil Sharma  |  743245 | 2005-12-07 | 345632 |    7 |    8 |
++-------+---------------+---------+------------+--------+------+------+
+
+mysql> create table empaudit(id int ,sal int);;
+Query OK, 0 rows affected (0.04 sec)
+
+ERROR:
+No query specified
+
+mysql> delimiter $$
+mysql> create trigger empt1
+    -> before update on employees
+    -> for each row
+    -> begin
+    -> insert into empaudit values(old.empid, old.salary);
+    -> end $$
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> delete from employees where empid=104$$
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select* from empaudit$$
+Empty set (0.00 sec)
+
+mysql> update employees set salary= salary+1000$$
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
++-------+---------------+---------+------------+--------+------+------+
+| empid | ename         | contact | DOB        | salary | Pid  | Did  |
++-------+---------------+---------+------------+--------+------+------+
+|   101 | Madhura Patil |  345678 | 2004-08-23 | 457354 |    2 |    3 |
+|   102 | Ram Kulkarni  |  532678 | 2003-09-26 | 235567 |    4 |    5 |
+|   103 | Sakshi Rathi  |  632422 | 2002-10-09 | 644567 |    6 |    7 |
++-------+---------------+---------+------------+--------+------+------+
+3 rows in set (0.01 sec)
+
+mysql> select* from empaudit$$
++------+--------+
+| id   | sal    |
++------+--------+
+|  101 | 456354 |
+|  102 | 234567 |
+|  103 | 643567 |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> create trigger empt5
+    -> before update on employee
+    -> for each row
+    -> begin
+    -> if new.salary>3000 then
+    -> set new.salary=2000;
+    -> end if;
+    -> end$$
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select* from employee;
+    -> select* from employee$$
++-------+---------------+-----------+------------+------------+--------+------+------+
+| empid | ename         | contactno | DOB        | DOJ        | salary | Pid  | did  |
++-------+---------------+-----------+------------+------------+--------+------+------+
+|   101 | Madhura Patil |    758652 | 2000-10-17 | 2020-12-11 |  17125 |    1 |    2 |
+|   103 | Tanvi Shinde  |   2345466 | 2003-09-10 | 2020-04-10 |  12345 |    6 |    7 |
+|   104 | Shruti Pawar  |    345466 | 2002-02-03 | 2020-07-11 |  78345 |    8 |    9 |
++-------+---------------+-----------+------------+------------+--------+------+------+
+3 rows in set (0.00 sec)
+
