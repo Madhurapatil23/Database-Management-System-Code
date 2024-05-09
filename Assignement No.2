@@ -1,0 +1,146 @@
+Madhura Patil
+
+Problem Statement:
+
+Design and implement a database (for assignment 1) using DDL statements and apply normalization on the.
+Multinational Company Manages information of Employees. Each Employee has unique ID. Each Employee works on project in some department
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+mysql> create database myDB;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use myDB;
+Database changed
+mysql> create table employee(Emp_ID int,Ename varchar(20),Addres
+s varchar(30));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++----------------+
+| Tables_in_mydb |
++----------------+
+| employee       |
++----------------+
+1 row in set (0.06 sec)
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Emp_ID  | int         | YES  |     | NULL    |       |
+| Ename   | varchar(20) | YES  |     | NULL    |       |
+| Address | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into employee values(101,"Madhura Patil","Pune");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Emp_ID  | int         | YES  |     | NULL    |       |
+| Ename   | varchar(20) | YES  |     | NULL    |       |
+| Address | varchar(30) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select* from employee;
++--------+---------------+---------+
+| Emp_ID | Ename         | Address |
++--------+---------------+---------+
+|    101 | Madhura Patil | Pune    |
++--------+---------------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee values(102,"Khshboo Mahajan","Alandi
+");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select* from employee;
++--------+-----------------+---------+
+| Emp_ID | Ename           | Address |
++--------+-----------------+---------+
+|    101 | Madhura Patil   | Pune    |
+|    102 | Khshboo Mahajan | Alandi  |
++--------+-----------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into employee values(103,"Rajesh Sharma","Solapur"
+);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select* from employee;
++--------+-----------------+---------+
+| Emp_ID | Ename           | Address |
++--------+-----------------+---------+
+|    101 | Madhura Patil   | Pune    |
+|    102 | Khshboo Mahajan | Alandi  |
+|    103 | Rajesh Sharma   | Solapur |
++--------+-----------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> update employee
+    -> set Emp_ID =104
+    -> where Ename ="Rajesh Sharma";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select* from employee;
++--------+-----------------+---------+
+| Emp_ID | Ename           | Address |
++--------+-----------------+---------+
+|    101 | Madhura Patil   | Pune    |
+|    102 | Khshboo Mahajan | Alandi  |
+|    104 | Rajesh Sharma   | Solapur |
++--------+-----------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employee values(105,"Vedant Joshi","Madras");
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select* from employee;
++--------+-----------------+---------+
+| Emp_ID | Ename           | Address |
++--------+-----------------+---------+
+|    101 | Madhura Patil   | Pune    |
+|    102 | Khshboo Mahajan | Alandi  |
+|    104 | Rajesh Sharma   | Solapur |
+|    105 | Vedant Joshi    | Madras  |
++--------+-----------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> delete from employee
+    -> where Ename="Vedant Joshi";
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select* from employee;
++--------+-----------------+---------+
+| Emp_ID | Ename           | Address |
++--------+-----------------+---------+
+|    101 | Madhura Patil   | Pune    |
+|    102 | Khshboo Mahajan | Alandi  |
+|    104 | Rajesh Sharma   | Solapur |
++--------+-----------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> rename employee to Employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee to Employee' at line 1
+mysql> rename table employee to Employee;
+ERROR 1050 (42S01): Table 'employee' already exists
+mysql> rename table employee to EMP;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select* from employee;
+ERROR 1146 (42S02): Table 'mydb.employee' doesn't exist
+mysql> select* from EMP;
++--------+-----------------+---------+
+| Emp_ID | Ename           | Address |
++--------+-----------------+---------+
+|    101 | Madhura Patil   | Pune    |
+|    102 | Khshboo Mahajan | Alandi  |
+|    104 | Rajesh Sharma   | Solapur |
++--------+-----------------+---------+
+3 rows in set (0.00 sec)
