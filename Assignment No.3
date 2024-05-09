@@ -1,0 +1,94 @@
+Problem Statement :-
+Execute DDL/DML statements which demonstrate the use of views. Update the base table using its corresponding view.
+Also consider restrictions on updatable views and perform view creation from multiple tables.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+mysql> create database mydb2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use mydb2;
+Database changed
+
+mysql> create table student_detail(S_Id int primary key,Name varchar(20),Address varchar(30));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into Student_detail (S_Id,Name,Address)values
+    -> (1,"Madhura","Sinnar");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Student_detail (S_Id,Name,Address)values
+    -> (2,"Sonali","Pune");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Student_detail (S_Id,Name,Address)values
+    -> (3,"Sakshi","Nashik");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Student_detail (S_Id,Name,Address)values
+    -> (4,"Nilesh","Satara");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select* from Student_detail;
++------+---------+---------+
+| S_Id | Name    | Address |
++------+---------+---------+
+|    1 | Madhura | Sinnar  |
+|    2 | Sonali  | Pune    |
+|    3 | Sakshi  | Nashik  |
+|    4 | Nilesh  | Satara  |
++------+---------+---------+
+4 rows in set (0.00 sec)
+
+mysql> Create table student_Mark(ID int primary key,Name varchar
+(20),Marks int,Age int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into Student_Mark(ID,Name,marks,Age) values
+    -> (1,"Madhura",80,19);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Student_Mark(ID,Name,marks,Age) values
+    -> (2,"Sonali",90,20),
+    -> (3,"Sakshi",60,18),
+    -> (4,"Nilesh",95,21);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select* from student_Mark;
++----+---------+-------+------+
+| ID | Name    | Marks | Age  |
++----+---------+-------+------+
+|  1 | Madhura |    80 |   19 |
+|  2 | Sonali  |    90 |   20 |
+|  3 | Sakshi  |    60 |   18 |
+|  4 | Nilesh  |    95 |   21 |
++----+---------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> Create view view1 AS SELECT Name,Address From Student_detail where S_Id <3;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select* from view1;
++---------+---------+
+| Name    | Address |
++---------+---------+
+| Madhura | Sinnar  |
+| Sonali  | Pune    |
++---------+---------+
+
+mysql> CREATE VIEW Markview AS SELECT Student_detail.Name , student_detail.Address, student_Mark.Marks FROM Student_detail ,stud
+ent_Mark WHERE Student_detail.Name = student_Mark.Name;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select *from Markview;
++---------+---------+-------+
+| Name    | Address | Marks |
++---------+---------+-------+
+| Madhura | Sinnar  |    80 |
+| Sonali  | Pune    |    90 |
+| Sakshi  | Nashik  |    60 |
+| Nilesh  | Satara  |    95 |
++---------+---------+-------+
+4 rows in set (0.00 sec)
+
