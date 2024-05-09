@@ -1,0 +1,127 @@
+Problem Statement :
+
+Create table with primary key and foreign key constraint.
+[a] Alter table with add and modify 
+[b] Drop Table
+
+-----------------------------------------------------------------------------------------------------------------
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| madhura            |
+| mpatil             |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> create database mydb1;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use mydb1;
+Database changed
+mysql> create table Employee(epid int,ename varchar(20),contact int,Dob date,salary int,Pid int,did int);
+Query OK, 0 rows affected (0.06 sec)
+mysql> insert into Employee values(101,"Madhura",89125634,'2004-07-08',67935,1,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee values(102,"Sonali",56836421,'2004-1
+1-03',97641,1,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee values(103,"Manisha",75328922,'2003-
+9-01',43678,5,3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Employee values(104,"Nisha",25497212,'2004-10
+-24',97251,4,7);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select* from Employee;
++------+---------+----------+------------+--------+------+------+
+| epid | ename   | contact  | Dob        | salary | Pid  | did  |
++------+---------+----------+------------+--------+------+------+
+|  101 | Madhura | 89125634 | 2004-07-08 |  67935 |    1 |    2 |
+|  102 | Sonali  | 56836421 | 2004-11-03 |  97641 |    1 |    2 |
+|  103 | Manisha | 75328922 | 2003-09-01 |  43678 |    5 |    3 |
+|  104 | Nisha   | 25497212 | 2004-10-24 |  97251 |    4 |    7 |
++------+---------+----------+------------+--------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> create table Project(P_id int primary key,Pname varchar(2
+0),loctaionid int);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> drop table project;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> alter table Employee add DOJ date;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| epid    | int         | YES  |     | NULL    |       |
+| ename   | varchar(20) | YES  |     | NULL    |       |
+| contact | int         | YES  |     | NULL    |       |
+| Dob     | date        | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
+| Pid     | int         | YES  |     | NULL    |       |
+| did     | int         | YES  |     | NULL    |       |
+| DOJ     | date        | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+mysql> alter table Employee modify ename varchar(40);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table Employee ADD Email varchar(30);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Alter table Employee RENAME COLUMN Email to Email_ID;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| epid     | int         | YES  |     | NULL    |       |
+| ename    | varchar(40) | YES  |     | NULL    |       |
+| contact  | int         | YES  |     | NULL    |       |
+| Dob      | date        | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| Pid      | int         | YES  |     | NULL    |       |
+| did      | int         | YES  |     | NULL    |       |
+| DOJ      | date        | YES  |     | NULL    |       |
+| Email_ID | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table Employee MODIFY COLUMN Email_ID varchar(50);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| epid     | int         | YES  |     | NULL    |       |
+| ename    | varchar(40) | YES  |     | NULL    |       |
+| contact  | int         | YES  |     | NULL    |       |
+| Dob      | date        | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| Pid      | int         | YES  |     | NULL    |       |
+| did      | int         | YES  |     | NULL    |       |
+| DOJ      | date        | YES  |     | NULL    |       |
+| Email_ID | varchar(50) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
